@@ -2,7 +2,7 @@ import { expect, test } from 'claude-code/testing'
 import type { On } from 'claude-code'
 
 const USAGE = { input_tokens: 1, output_tokens: 1, cache_read_input_tokens: 0, cache_creation_input_tokens: 0 }
-const long = (s: string) => `${s} ` + 'word '.repeat(160)
+const long = (s: string) => `${s} ` + 'word '.repeat(260)
 
 function engine(on: On, reply: object, asks: string[]) {
   on('ui.toast', () => ({ value: undefined }))

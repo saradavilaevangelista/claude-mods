@@ -1,7 +1,7 @@
 import type { Register } from 'claude-code'
 
 /** A message at least this many words long counts as a brain dump. */
-const MIN_WORDS = 150
+const MIN_WORDS = 250
 const MAX_QUESTIONS = 3
 
 const SORT = `You tidy up a user's long "brain dump" message to an AI assistant before it is sent.

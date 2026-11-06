@@ -13,11 +13,14 @@ Rules, first match wins:
 - "low": a quick question with a short answer.
 - "keep": anything else.
 Also judge whether a different Claude model would clearly do this job better than the current one (e.g. a much faster/cheaper model for trivial lookups, or a stronger model for hard reasoning or long autonomous work). Only suggest when it clearly matters; otherwise null.
-Reply with ONLY a JSON object: {"level":"xhigh"|"high"|"low"|"keep","reason":"<under 12 words>","model":null|"<model name>","modelReason":null|"<under 15 words>"}`
+Reply with ONLY a JSON object: {"level":"xhigh"|"high"|"low"|"keep","reason":"<under 12 words>","reasonPt":"<the same reason in Brazilian Portuguese>","model":null|"<model name>","modelReason":null|"<under 15 words>"}`
 
 const LEVELS: readonly string[] = ['low', 'medium', 'high', 'xhigh', 'max']
 
-type Verdict = { level: Level | null; reason: string; model: string | null; modelReason: string | null }
+/** Level names for the Portuguese pop-up. */
+const PT: Record<string, string> = { low: 'baixo', medium: 'médio', high: 'alto', xhigh: 'extra-alto', max: 'máximo' }
+
+type Verdict = { level: Level | null; reason: string; reasonPt: string; model: string | null; modelReason: string | null }
 
 function parse(text: string): Verdict | null {
   const m = text.match(/\{[\s\S]*\}/)
@@ -29,6 +32,7 @@ function parse(text: string): Verdict | null {
     return {
       level,
       reason: typeof j.reason === 'string' ? j.reason : '',
+      reasonPt: typeof j.reasonPt === 'string' && j.reasonPt ? j.reasonPt : typeof j.reason === 'string' ? j.reason : '',
       model: typeof j.model === 'string' && j.model ? j.model : null,
       modelReason: typeof j.modelReason === 'string' ? j.modelReason : null,
     }
@@ -49,7 +53,7 @@ export const register: Register = on => {
       system: RULES,
       prompt: `Current model: ${currentModel}\n\nUser message:\n${e.text.slice(0, 6000)}`,
       effort: 'low',
-      maxTokens: 200,
+      maxTokens: 300,
       timeoutMs: 8000,
     })
     const v = r.isAnswered ? parse(r.text) : null
@@ -63,7 +67,8 @@ export const register: Register = on => {
     const prevLevel = before?.level ?? null
     if (prevLevel !== chosen.level) {
       const label = chosen.level ?? 'the session default'
-      $.ui.toast(`Effort → ${label}: ${chosen.reason}`)
+      const labelPt = chosen.level ? PT[chosen.level] ?? chosen.level : 'padrão da sessão'
+      $.ui.toast(`Esforço → ${labelPt}: ${v.reasonPt}`)
       notes.push(
         `[Effort Picker] Effort for this message was changed to ${label} (from ${prevLevel ?? 'the session default'}) because: ${chosen.reason}. ` +
           `Start your reply with one short line telling the user this change and why.`,
