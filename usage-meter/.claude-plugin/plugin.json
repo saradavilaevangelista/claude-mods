@@ -1,0 +1,1 @@
+{ "name": "usage-meter", "version": "0.1.0", "description": "One line above the chat with how full this chat is and how much of your 5-hour and weekly limits you've used; warns before a message sent after an hour away.", "types": "./types/index.d.ts" }

@@ -1,0 +1,11 @@
+{
+  "name": "claude-mods",
+  "owner": { "name": "saradavilaevangelista" },
+  "plugins": [
+    { "name": "effort-picker", "source": "./effort-picker", "description": "Picks the effort for each message you send and tells you when it changes and why." },
+    { "name": "usage-meter", "source": "./usage-meter", "description": "One line above the chat: how full the chat is and how much of your 5-hour and weekly limits you've used." },
+    { "name": "brain-dump", "source": "./brain-dump", "description": "Sorts a long message into goal, facts and asks before it's sent." },
+    { "name": "replay-theater", "source": "./replay-theater", "description": "Walks you through Claude's file changes one at a time, track-changes style." },
+    { "name": "handoff", "source": "./handoff", "description": "Writes a handoff note, saves it, and restarts the chat from it." }
+  ]
+}

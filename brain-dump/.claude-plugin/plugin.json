@@ -1,0 +1,1 @@
+{ "name": "brain-dump", "version": "0.1.0", "description": "Holds a long message, sorts it into goal, facts and asks, asks up to three questions where it could go two ways, then sends the clean version. Timestamped notes become a numbered list ticked off at the end." }

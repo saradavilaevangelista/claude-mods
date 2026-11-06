@@ -1,0 +1,1 @@
+{ "name": "handoff", "version": "0.1.0", "description": "On /handoff, or when the chat passes 60% full, writes a note of what's done, what's next, what's uncertain and which files matter, saves it, and restarts the chat from that note." }

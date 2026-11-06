@@ -1,0 +1,1 @@
+{ "name": "replay-theater", "version": "0.1.0", "description": "After Claude edits your files, a Replay button walks you through every change one at a time, track-changes style: the old line crossed out, the new one under it.", "types": "./types/index.d.ts" }
